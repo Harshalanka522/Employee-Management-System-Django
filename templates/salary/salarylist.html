@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salary List</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f6f9;
+    padding:30px;
+}
+
+.container{
+    width:95%;
+    margin:auto;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.header h2{
+    color:#333;
+}
+
+.add-btn{
+    text-decoration:none;
+    background:#198754;
+    color:white;
+    padding:10px 18px;
+    border-radius:5px;
+}
+
+.add-btn:hover{
+    background:#157347;
+}
+
+.search-form{
+    margin-bottom:20px;
+}
+
+.search-form input{
+    padding:10px;
+    width:280px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.search-form button{
+    padding:10px 18px;
+    background:#0d6efd;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.search-form button:hover{
+    background:#0b5ed7;
+}
+
+.success-message{
+    background:#d1e7dd;
+    color:#0f5132;
+    border:1px solid #badbcc;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:5px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+table th{
+    background:#2f3b52;
+    color:white;
+    padding:12px;
+}
+
+table td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+table tr:hover{
+    background:#f8f9fa;
+}
+
+.update-btn{
+    text-decoration:none;
+    background:#0d6efd;
+    color:white;
+    padding:6px 12px;
+    border-radius:4px;
+}
+
+.delete-btn{
+    text-decoration:none;
+    background:#dc3545;
+    color:white;
+    padding:6px 12px;
+    border-radius:4px;
+}
+
+.update-btn:hover{
+    background:#0b5ed7;
+}
+
+.delete-btn:hover{
+    background:#bb2d3b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="header">
+
+    <h2>Salary List</h2>
+
+    <a href="{% url 'salaryform' %}" class="add-btn">
+        + Add Salary
+    </a>
+
+</div>
+
+<form method="GET" class="search-form">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search Employee / Month / Year"
+        value="{{ request.GET.search }}">
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Employee</th>
+<th>Month</th>
+<th>Year</th>
+<th>Basic Salary</th>
+<th>Bonus</th>
+<th>Deduction</th>
+<th>Net Salary</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for salary in salaries %}
+
+<tr>
+
+<td>{{ forloop.counter }}</td>
+
+<td>{{ salary.employee.name }}</td>
+
+<td>{{ salary.salary_month }}</td>
+
+<td>{{ salary.salary_year }}</td>
+
+<td>{{ salary.basic_salary }}</td>
+
+<td>{{ salary.bonus }}</td>
+
+<td>{{ salary.deduction }}</td>
+
+<td>{{ salary.net_salary }}</td>
+
+<td>
+
+<a href="{%url 'updatesalary' salary.id%}" class="update-btn">
+Update
+</a>
+
+<a href="{%url 'deletesalary' salary.id%}"
+class="delete-btn"
+onclick="return confirm('Are you sure?')">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="9">
+
+No Salary Records Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</body>
+</html>

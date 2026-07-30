@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Departments | Employee Management System</title>
+    <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #1f2937;
+}
+
+
+.hero {
+    text-align: center;
+    padding: 80px 20px 50px;
+}
+
+.hero h1 {
+    font-size: 34px;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #6b7280;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+.hero .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hero .buttons a {
+    text-decoration: none;
+}
+
+.hero .buttons button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hero .buttons button:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+.hero .buttons a:nth-child(1) button {
+    background: #8b5cf6;
+    color: #fff;
+}
+
+.hero .buttons a:nth-child(2) button {
+    background: #22d3ee;
+    color: #0f172a;
+}
+.success-message{
+    width:90%;
+    margin:15px auto;
+    padding:12px;
+    background:#d4edda;
+    color:#155724;
+    border:1px solid #c3e6cb;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+
+     {% if messages %}
+    {% for message in messages %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+    <section class="hero">
+        <h1>Departments</h1>
+        <p>Add new departments or view the full department list.</p>
+        <div class="buttons">
+            <a href="{% url 'department'%}"><button>Add Department</button></a>
+            <a href="{%url 'departlist'%}"><button>Department List</button></a>
+        </div>
+    </section>
+
+</body>
+</html>

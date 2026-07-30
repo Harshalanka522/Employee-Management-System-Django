@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Department List | Employee Management System</title>
+    <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #1f2937;
+}
+
+/* Page heading */
+h2 {
+    text-align: center;
+    color: #0f172a;
+    margin: 40px 0 25px;
+    font-size: 26px;
+}
+
+/* Search form */
+.search-form {
+    max-width: 1100px;
+    margin: 0 auto 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 240px;
+}
+
+.search-form input[type="text"]:focus {
+    outline: none;
+    border-color: #0f172a;
+}
+
+.search-form button {
+    background: #0f172a;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.search-form button:hover {
+    background: #1e293b;
+}
+
+.table-wrapper {
+    max-width: 1100px;
+    margin: 0 auto 60px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: #0f172a;
+    color: #fff;
+}
+
+tr:hover td {
+    background: #f1f5f9;
+}
+
+.action-btn {
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 4px;
+}
+
+.edit-btn {
+    background: #16a34a;
+}
+
+.edit-btn:hover {
+    background: #15803d;
+}
+
+.delete-btn {
+    background: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #b91c1c;
+}
+
+.empty-row td {
+    color: #6b7280;
+    padding: 30px;
+    font-style: italic;
+}
+.success-message{
+    width:90%;
+    margin:15px auto;
+    padding:12px;
+    background:#d4edda;
+    color:#155724;
+    border:1px solid #c3e6cb;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <h2>Department List</h2>
+
+     {% if messages %}
+    {% for message in messages %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+
+    <form class="search-form" method="get" action="">
+        <input type="text" name="Search" placeholder="Search department..." value="{{ request.GET.Search }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Department Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for department in my %}
+                <tr>
+                    <td>{{ department.id }}</td>
+                    <td>{{ department.department_name }}</td>
+                    <td>
+                        <a class="action-btn edit-btn" href="{%url 'updatelist' department.id %}">Edit</a>
+                        <a class="action-btn delete-btn" href="{%url 'deletedip' department.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="empty-row">
+                    <td colspan="3">No departments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

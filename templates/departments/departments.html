@@ -1,0 +1,17 @@
+<html>
+
+<head>
+    <title>ad-department</title>
+    </head>
+<body>
+
+
+    <form method="POST">
+       
+        {{ my.as_p }}
+         {% csrf_token %}
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+</body>
+</html>

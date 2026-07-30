@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance List</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;
+     background:#f4f6f9;
+     padding:30px
+    }
+.container{max-width:1200px;
+           margin:auto
+        }
+.header{display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+        margin-bottom:20px
+    }
+.left{display:flex;
+    align-items:center;
+    gap:15px
+}
+h2{color:#1f2937
+}
+.add-btn{background:#198754;
+         color:#fff;padding:10px 16px;
+         text-decoration:none;
+         border-radius:6px;
+         font-weight:bold
+        }
+.add-btn:hover{background:#157347}
+.search-form{display:flex;
+             gap:8px
+            }
+.search-form input{padding:10px;
+                   border:1px solid #ccc;
+                   border-radius:6px;
+                   width:260px
+                }
+.search-form button{padding:10px 14px;
+                    border:none;background:#0d6efd; 
+                    color:#fff;
+                    border-radius:6px;
+                    cursor:pointer
+                }
+.message{background:#d1e7dd;
+        color:#0f5132;
+        padding:12px;
+        border:1px solid #badbcc;
+        border-radius:6px;
+        margin-bottom:15px
+    }
+table{width:100%;
+     border-collapse:collapse;
+     background:#fff;
+     box-shadow:0 2px 8px rgba(0,0,0,.1)
+    }
+th{background:#2f3b52;
+    color:#fff;
+    padding:12px
+}
+td{padding:12px;
+    border-bottom:1px solid #eee
+}
+tr:hover{background:#f8f9fa}
+.badge{padding:5px 10px;
+       border-radius:15px;
+       color:#fff;
+       font-size:13px
+    }
+.present{background:#198754}.absent{background:#dc3545}.leave{background:#0d6efd}.half-day{background:#fd7e14}
+.btn{padding:6px 10px;
+     text-decoration:none;
+     color:#fff;
+     border-radius:4px;
+     font-size:13px}
+.edit{background:#0d6efd}.delete{background:#dc3545}
+</style>
+</head>
+<body>
+<div class="container">
+{% if messages %}
+{% for message in messages %}
+<div class="message">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<div class="header">
+<div class="left">
+<h2>Attendance List</h2>
+<a href="{% url 'attendanceform' %}" class="add-btn">+ Add Attendance</a>
+</div>
+
+<form method="GET" class="search-form">
+<input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search employee, date or status">
+<button type="submit">Search</button>
+</form>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>ID</th><th>Employee</th><th>Date</th><th>Status</th><th>Action</th>
+</tr>
+</thead>
+<tbody>
+{% for item in attendancelist %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td>{{ item.employeename.name }}</td>
+<td>{{ item.date }}</td>
+<td>
+<span class="badge {% if item.status == 'PRESENT' %}present{% elif item.status == 'ABSENT' %}absent{% elif item.status == 'LEAVE' %}leave{% else %}half-day{% endif %}">
+{{ item.status }}
+</span>
+</td>
+<td>
+<a href="{% url 'updateattendance' item.id %}" class="btn edit">Update</a>
+<a href="{% url 'deleteattendance' item.id %}" class="btn delete" onclick="return confirm('Delete this attendance record?')">Delete</a>
+</td>
+</tr>
+{% empty %}
+<tr><td colspan="5" style="text-align:center">No attendance records found.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</body>
+</html>

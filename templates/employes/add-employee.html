@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add Employee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #EEF2F7;
+            font-family: 'Inter', sans-serif;
+            padding: 50px 20px;
+            color: #1E293B;
+        }
+
+        .form-wrapper {
+            background-color: #fff;
+            border-radius: 14px;
+            max-width: 560px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(22, 50, 79, 0.12);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #16324F 0%, #1F6E8C 100%);
+            padding: 22px 36px;
+        }
+
+        .form-header h4 {
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin: 0;
+            font-size: 1.25rem;
+            letter-spacing: 0.3px;
+        }
+
+        .form-body {
+            padding: 34px 36px 40px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.92rem;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            background-color: #F4F7FB;
+            border: 1.5px solid #DCE4EE;
+            color: #1E293B;
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+
+        .form-control:focus {
+            background-color: #fff;
+            border-color: #1F6E8C;
+            box-shadow: 0 0 0 3px rgba(31, 110, 140, 0.15);
+            color: #1E293B;
+        }
+
+        .form-row {
+            margin-bottom: 18px;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1F6E8C 0%, #16324F 100%);
+            color: #fff;
+            border: none;
+            padding: 11px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            width: 100%;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.92;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-wrapper">
+
+        <div class="form-header">
+            <h4>Add Employee</h4>
+        </div>
+
+        <div class="form-body">
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="error-message">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <label class="form-label">Employee id:</label>
+                    {{ form.employee_id }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Name:</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Department:</label>
+                    {{ form.department }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Email:</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Phone:</label>
+                    {{ form.phone }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Joining date:</label>
+                    {{ form.joining_date }}
+                </div>
+
+                <button type="submit" class="submit-btn mt-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
