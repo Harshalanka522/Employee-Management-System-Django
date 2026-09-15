@@ -4,11 +4,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-change-this-key-in-production'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     ".onrender.com",
     "127.0.0.1",
+    '192.168.55.104',
     "localhost",
 ]
 
@@ -19,10 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'apps.employees',
     'apps.department',
     'apps.attendance',
     'apps.salary',
+    'apps.api',
+    
    
 ]
 
