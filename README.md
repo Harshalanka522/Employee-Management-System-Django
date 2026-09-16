@@ -28,7 +28,7 @@ The project was developed to gain practical experience in **Django full-stack de
 - 🔍 Search employees
 - 📄 Pagination
 
-- ## 🛠️ Technologies Used
+ ## 🛠️ Technologies Used
 
 ### 🐍 Backend
 
